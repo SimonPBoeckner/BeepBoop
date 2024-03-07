@@ -44,7 +44,7 @@ public final class Constants {
 
   public static final double LOOP_CYCLE = 0.02; // 20ms
 
-  public static final double ROBOT_MASS = 90 / 2.2;
+  public static final double ROBOT_MASS = 100 / 2.2;
   public static final double MANIPULATOR_MASS = 0;
   public static final double CHASSIS_MASS = ROBOT_MASS - MANIPULATOR_MASS;
   public static final double ARM_Y_POS = 0;
@@ -69,14 +69,14 @@ public final class Constants {
 
         // Module locations, in meters, as distances to the center of the robot.
         // Positive x is torwards the robot front, and +y is torwards robot left.
-        public static final double FRONT_LEFT_X = Units.inchesToMeters(7.875);
-        public static final double FRONT_LEFT_Y = Units.inchesToMeters(12.25);
-        public static final double FRONT_RIGHT_X = Units.inchesToMeters(7.875);
-        public static final double FRONT_RIGHT_Y = Units.inchesToMeters(-12.25);
-        public static final double BACK_LEFT_X = Units.inchesToMeters(-14.625);
-        public static final double BACK_LEFT_Y = Units.inchesToMeters(12.25);
-        public static final double BACK_RIGHT_X = Units.inchesToMeters(-14.625);
-        public static final double BACK_RIGHT_Y = Units.inchesToMeters(-12.25);
+        public static final double FRONT_LEFT_X = Units.inchesToMeters(10.375);
+        public static final double FRONT_LEFT_Y = Units.inchesToMeters(10.375);
+        public static final double FRONT_RIGHT_X = Units.inchesToMeters(10.375);
+        public static final double FRONT_RIGHT_Y = Units.inchesToMeters(-10.375);
+        public static final double BACK_LEFT_X = Units.inchesToMeters(-10.375);
+        public static final double BACK_LEFT_Y = Units.inchesToMeters(10.375);
+        public static final double BACK_RIGHT_X = Units.inchesToMeters(-10.375);
+        public static final double BACK_RIGHT_Y = Units.inchesToMeters(-10.375);
 
         public static final Translation2d[] MODULE_LOCATIONS = {
                 new Translation2d(Drivebase.FRONT_LEFT_X, Drivebase.FRONT_LEFT_Y),
@@ -91,7 +91,7 @@ public final class Constants {
         public static final double IMU_MOUNT_ROLL = 0;
 
         // Drivetrain limitations
-        public static final double MAX_SPEED = (VORTEX_FREE_SPEED * Units.inchesToMeters(3 * Math.PI)) / (60 * 4.71); // meters per second NOT A LIMIT!!! DO NOT TOUCH!!!
+        public static final double MAX_SPEED = (VORTEX_FREE_SPEED * Units.inchesToMeters(4 * Math.PI)) / (60 * 6.12); // meters per second NOT A LIMIT!!! DO NOT TOUCH!!!
         public static final double MAX_ANGULAR_VELOCITY = MAX_SPEED / Math.hypot(FRONT_LEFT_X, FRONT_LEFT_Y); // rad/s
         // Theoretical max acceleration should be as follows:
         // (NEO stall torque * module gearing * number of modules) / (wheel radius *
@@ -102,7 +102,7 @@ public final class Constants {
         public static final double MAX_ACCELERATION = 1 * GRAVITY; // COF is 1.1 but careful
         public static final double MAX_ANGULAR_ACCELERATION = MAX_ACCELERATION / Math.hypot(FRONT_LEFT_X, FRONT_LEFT_Y);
         // max speed (RPM) / gear ratio, convert to deg/min, divide by 60 for deg/s
-        public static final double MAX_MODULE_ANGULAR_SPEED = Units.rotationsToDegrees(NEO_550_FREE_SPEED * 7 / 372)
+        public static final double MAX_MODULE_ANGULAR_SPEED = Units.rotationsToDegrees(NEO_FREE_SPEED * 7 / 372)
                 / 60; // deg/s
 
     // Currently does nothing
@@ -154,59 +154,57 @@ public final class Constants {
         // Encoder conversion values. Drive converts motor rotations to linear wheel
         // distance
         // and steering converts motor rotations to module azimuth
-        public static final double METERS_PER_MOTOR_ROTATION = (Math.PI * Units.inchesToMeters(3)) / 4.71;
+        public static final double METERS_PER_MOTOR_ROTATION = (Math.PI * Units.inchesToMeters(4)) / 6.12;
         // Calculation: 3in diameter wheels * pi [circumfrence] / gear ratio
-        public static final double DEGREES_PER_STEERING_ROTATION = 360;
+        public static final double DEGREES_PER_STEERING_ROTATION = 360 / 16.8;
         // degrees per rotation / gear ratio between module and motor
 
         // Module specific constants
         public static final class Mod0 {
-            public static final int DRIVE_MOTOR_ID = 3;
-            public static final int ANGLE_MOTOR_ID = 2;
+            public static final int DRIVE_MOTOR_ID = 4;
+            public static final int ANGLE_MOTOR_ID = 24;
             public static final double ANGLE_OFFSET = 360 - 20.7;
             public static final SwerveModuleConstants CONSTANTS = new SwerveModuleConstants(0, DRIVE_MOTOR_ID,
                     ANGLE_MOTOR_ID, ANGLE_OFFSET, FRONT_LEFT_X, FRONT_LEFT_Y);
         }
 
         public static final class Mod1 {
-            public static final int DRIVE_MOTOR_ID = 5;
-            public static final int ANGLE_MOTOR_ID = 4;
+            public static final int DRIVE_MOTOR_ID = 3;
+            public static final int ANGLE_MOTOR_ID = 23;
             public static final double ANGLE_OFFSET = 360 - 126.8;
             public static final SwerveModuleConstants CONSTANTS = new SwerveModuleConstants(1, DRIVE_MOTOR_ID,
                     ANGLE_MOTOR_ID, ANGLE_OFFSET, FRONT_RIGHT_X, FRONT_RIGHT_Y);
         }
 
         public static final class Mod2 {
-            public static final int DRIVE_MOTOR_ID = 7;
-            public static final int ANGLE_MOTOR_ID = 6;
+            public static final int DRIVE_MOTOR_ID = 2;
+            public static final int ANGLE_MOTOR_ID = 22;
             public static final double ANGLE_OFFSET = 360 - 58.65;
             public static final SwerveModuleConstants CONSTANTS = new SwerveModuleConstants(2, DRIVE_MOTOR_ID,
                     ANGLE_MOTOR_ID, ANGLE_OFFSET, BACK_LEFT_X, BACK_LEFT_Y);
         }
 
         public static final class Mod3 {
-            public static final int DRIVE_MOTOR_ID = 9;
-            public static final int ANGLE_MOTOR_ID = 8;
+            public static final int DRIVE_MOTOR_ID = 1;
+            public static final int ANGLE_MOTOR_ID = 21;
             public static final double ANGLE_OFFSET = 360 - 197.38;
             public static final SwerveModuleConstants CONSTANTS = new SwerveModuleConstants(3, DRIVE_MOTOR_ID,
                     ANGLE_MOTOR_ID, ANGLE_OFFSET, BACK_RIGHT_X, BACK_RIGHT_Y);
         }
 
-        public static final int PIGEON = 30;
+        public static final int PIGEON = 0;
     }
 
     public static final class Vision {
         public static final int APRILTAG_PIPELINE_NUMBER = 0;
-        public static final String BOW_LIMELIGHT_NAME = "limelight-bow";
-        public static final String STERN_LIMELIGHT_NAME = "limelight-stern";
-        public static final String NOTE_LIMELIGHT_NAME = "limelight-note";
+        public static final String FRONT_LIMELIGHT_NAME = "limelight-front";
+        public static final String RIGHT_LIMELIGHT_NAME = "limelight-right";
 
+        //currently unused - simon
         @SuppressWarnings("unused")
-        private static final int BOW_IP = 13; // Git-tracked notepad
+        private static final int FRONT_IP = 13; // Git-tracked notepad
         @SuppressWarnings("unused")
-        private static final int STERN_IP = 12;
-        @SuppressWarnings("unused")
-        private static final int NOTE_IP = 14;
+        private static final int RIGHT_IP = 12;
 
         public static final double POSE_ERROR_TOLERANCE = 1;
         public static final double ANGULAR_ERROR_TOLERANCE = Math.toRadians(7);
@@ -242,12 +240,11 @@ public final class Constants {
     }
 
     public static final class ShooterConstants {
-        public static final int PORT_SHOOTER_ID = 12;
-        public static final int STARBOARD_SHOOTER_ID = 13;
-        public static final int LOADER_ID = 14;
-        public static final int SHOULDER_ID = 15;
-        public static final int NOTE_SENSOR_ID = 0;
-        public static final int LIMIT_SWITCH_ID = 1;
+        public static final int LEFT_PIVOT_ID = 5;
+        public static final int RIGHT_PIVOT_ID = 6;
+        public static final int LEFT_FLYWHEEL_ID = 8;
+        public static final int RIGHT_FLYWHEEL_ID = 9;
+        public static final int NOTE_SENSOR_PORT = 2;
 
         public static final int LOADER_STATUS_FRAME_0_PERIOD = 10;
         public static final int LOADER_STATUS_FRAME_1_PERIOD = 58000;
@@ -371,8 +368,8 @@ public final class Constants {
     }
 
     public static final class IntakeConstants {
-        public static final int TOP_ROLLER_ID = 10;
-        public static final int BOTTOM_ROLLER_ID = 11;
+        public static final int FEED_ID = 10;
+        public static final int PIVOT_ID = 7;
 
         public static final int STATUS_FRAME_0_PERIOD = 20;
         public static final int STATUS_FRAME_1_PERIOD = 60000;
@@ -384,6 +381,8 @@ public final class Constants {
     }
 
     public static final class NoteHandlerSpeeds {
+        public static final double INDEXER_ID = 12;
+
         public static final double INTAKE_IDLE = 0;
         public static final double INTAKE_UNJAM = -1;
 
@@ -417,8 +416,8 @@ public final class Constants {
     }
     public static final class OperatorConstants {
         public static final int driveControllerPort = 0;
-        public static final int headingControllerPort = 1;
-        public static final int operatorControllerPort = 2;
+        // public static final int headingControllerPort = 1;
+        public static final int operatorControllerPort = 1;
     
     public static final double joystickDeadband = 0.05;
     }

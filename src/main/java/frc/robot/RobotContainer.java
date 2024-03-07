@@ -7,8 +7,9 @@ package frc.robot;
 import frc.robot.Constants.Auton;
 import frc.robot.Constants.Drivebase;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.AutoShoot;
 // import frc.robot.commands.AutoAmp;
-// import frc.robot.commands.AutoShoot;
+import frc.robot.commands.AutoShoot;
 // import frc.robot.commands.Autos;
 import frc.robot.drivebase.AbsoluteDrive;
 // import frc.robot.commands.NoteHandlerCommand;
@@ -212,7 +213,7 @@ public class RobotContainer {
      * operatorController.x().whileTrue(shooter.sysIdDynShoulder(SysIdRoutine.
      * Direction.kReverse));
      */
-    // driveController.button(1).whileTrue(new AutoShoot(drivebase));
+    driveController.button(1).whileTrue(new AutoShoot(drivebase));
     driveController.button(8).onTrue(new InstantCommand(drivebase::clearOdometrySeed).ignoringDisable(true));
     operatorController.start().onTrue(new InstantCommand(drivebase::clearOdometrySeed).ignoringDisable(true));
     /*driveController.button(2).whileTrue(new AutoAmp(drivebase)).onFalse(new InstantCommand(() -> {

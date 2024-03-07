@@ -49,7 +49,7 @@ public class SwerveBase extends SubsystemBase {
   private Pigeon2 imu;
   
   public Field2d field = new Field2d();
-  private Field2d sternCam, bowCam;
+  private Field2d frontCam, rightCam;
 
   private double angle, lasttime;
 
@@ -122,13 +122,13 @@ public class SwerveBase extends SubsystemBase {
     currentFieldVelocity = new ChassisSpeeds();
     currentTeleFieldVelocity = new ChassisSpeeds();
 
-    sternCam = new Field2d();
-    bowCam = new Field2d();
-    SmartDashboard.putData("SternCam", sternCam);
-    SmartDashboard.putData("BowCam", bowCam);
+    frontCam = new Field2d();
+    // rightCam = new Field2d();
+    SmartDashboard.putData("FrontCam", frontCam);
+    SmartDashboard.putData("RightCam", rightCam);
     SmartDashboard.putData("Field", field);
     poseErrorCounter = 0;
-    LimelightHelpers.setCameraMode_Driver(Vision.NOTE_LIMELIGHT_NAME);
+    // LimelightHelpers.setCameraMode_Driver(Vision.NOTE_LIMELIGHT_NAME);
 
     driveCharacterizer = new SysIdRoutine(
       new SysIdRoutine.Config(),
@@ -495,28 +495,28 @@ public class SwerveBase extends SubsystemBase {
     SmartDashboard.putBoolean("seeded", wasOdometrySeeded);
     // Seed odometry if this has not been done
     if (!wasOdometrySeeded && alliance != null) { 
-      CamData bowSeed = new CamData(LimelightHelpers.getLatestResults(Vision.BOW_LIMELIGHT_NAME));
-      CamData sternSeed = new CamData(LimelightHelpers.getLatestResults(Vision.STERN_LIMELIGHT_NAME));
-      if ((bowSeed.valid) && (sternSeed.valid)) {
+      CamData frontSeed = new CamData(LimelightHelpers.getLatestResults(Vision.FRONT_LIMELIGHT_NAME));
+      CamData rightSeed = new CamData(LimelightHelpers.getLatestResults(Vision.RIGHT_LIMELIGHT_NAME));
+      if ((frontSeed.valid) && (rightSeed.valid)) {
         // Average poses together
-        Translation2d translation = bowSeed.pose2d.getTranslation().plus(sternSeed.pose2d.getTranslation()).div(2);
+        Translation2d translation = frontSeed.pose2d.getTranslation().plus(rightSeed.pose2d.getTranslation()).div(2);
         // Rotation average:
         Rotation2d rotation = 
           new Translation2d(
-            (bowSeed.pose2d.getRotation().getCos() + sternSeed.pose2d.getRotation().getCos()) / 2,
-            (bowSeed.pose2d.getRotation().getSin() + sternSeed.pose2d.getRotation().getSin()) / 2)
+            (frontSeed.pose2d.getRotation().getCos() + rightSeed.pose2d.getRotation().getCos()) / 2,
+            (frontSeed.pose2d.getRotation().getSin() + rightSeed.pose2d.getRotation().getSin()) / 2)
           .getAngle();
         resetOdometry(new Pose2d(translation, rotation));
         wasOdometrySeeded = true;
         wasGyroReset = true;
       }
-      else if (sternSeed.valid) {
-        resetOdometry(sternSeed.pose2d);
+      else if (rightSeed.valid) {
+        resetOdometry(rightSeed.pose2d);
         wasOdometrySeeded = true;
         wasGyroReset = true;
       }
-      else if (bowSeed.valid) {
-        resetOdometry(bowSeed.pose2d);
+      else if (frontSeed.valid) {
+        resetOdometry(frontSeed.pose2d);
         wasOdometrySeeded = true;
         wasGyroReset = true;
       } else {
@@ -526,18 +526,18 @@ public class SwerveBase extends SubsystemBase {
       DriverStation.reportError("Alliance not set!!  Odometry not seeded!", false);
     }
     
-    CamData bowCamPose = addVisionMeasurement(Vision.BOW_LIMELIGHT_NAME, currentPose);
-    CamData sternCamPose = addVisionMeasurement(Vision.STERN_LIMELIGHT_NAME, currentPose);
+    CamData bowCamPose = addVisionMeasurement(Vision.FRONT_LIMELIGHT_NAME, currentPose);
+    CamData sternCamPose = addVisionMeasurement(Vision.RIGHT_LIMELIGHT_NAME, currentPose);
 
     field.setRobotPose(currentPose);
-    bowCam.setRobotPose(bowCamPose.pose2d);
+    frontCam.setRobotPose(bowCamPose.pose2d);
     SmartDashboard.putNumber("BowCamZ", bowCamPose.pose3d.getZ());
     SmartDashboard.putBoolean("BowValid", bowCamPose.valid);
     SmartDashboard.putNumber("BowTa", bowCamPose.ta);
     SmartDashboard.putNumber("BowNumTarg", bowCamPose.numTargets);
     SmartDashboard.putNumber("BowPipe", bowCamPose.pipeline);
     SmartDashboard.putNumber("BowLatency", bowCamPose.latency);
-    sternCam.setRobotPose(sternCamPose.pose2d);
+    rightCam.setRobotPose(sternCamPose.pose2d);
     SmartDashboard.putNumber("SternCamZ", sternCamPose.pose3d.getZ());
     SmartDashboard.putBoolean("SternValid", sternCamPose.valid);
     SmartDashboard.putNumber("SternTa", sternCamPose.ta);
