@@ -177,7 +177,7 @@ public class SwerveModule {
         Rotation2d azimuth;
         if (Robot.isReal()) {
             velocity = driveEncoder.getVelocity();
-            azimuth = Rotation2d.fromDegrees(encoder.getAbsolutePosition().getValueAsDouble()); //TODO: does getAbsolutePosition return in degrees or does it need to be changed
+            azimuth = Rotation2d.fromDegrees(encoder.getAbsolutePosition().getValueAsDouble() * 360); //TODO: does getAbsolutePosition return in degrees or does it need to be changed
         } else {
             velocity = speed;
             azimuth = Rotation2d.fromDegrees(this.angle);
@@ -194,7 +194,7 @@ public class SwerveModule {
         Rotation2d azimuth;
         if (Robot.isReal()) {
             position = driveEncoder.getPosition();
-            azimuth = Rotation2d.fromDegrees(encoder.getAbsolutePosition().getValueAsDouble()); //TODO: does getAbsolutePosition return in degrees or does it need to be changed
+            azimuth = Rotation2d.fromDegrees(encoder.getAbsolutePosition().getValueAsDouble() * 360); //TODO: does getAbsolutePosition return in degrees or does it need to be changed
         } else {
             position = fakePos;
             azimuth = Rotation2d.fromDegrees(angle);
@@ -205,13 +205,13 @@ public class SwerveModule {
     }
 
     public double getAbsoluteEncoder() {
-        return encoder.getPosition().getValueAsDouble();
+        return (encoder.getPosition().getValueAsDouble() * 360);
     }
 
     public void setMotorBrake(boolean brake) {
         driveMotor.setIdleMode(brake ? CANSparkMax.IdleMode.kBrake : CANSparkMax.IdleMode.kCoast);
     }
-
+    
     public void turnModule(double speed) {
         angleMotor.set(speed);
         SmartDashboard.putNumber("AbsoluteEncoder" + moduleNumber, encoder.getVelocity().getValueAsDouble()); //TODO: Does this value return the correct unit
