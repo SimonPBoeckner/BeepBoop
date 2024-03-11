@@ -4,17 +4,17 @@
 
 package frc.robot;
 
-import frc.robot.Constants.Auton;
+// import frc.robot.Constants.Auton;
 import frc.robot.Constants.Drivebase;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AutoShoot;
 // import frc.robot.commands.AutoAmp;
-import frc.robot.commands.AutoShoot;
+// import frc.robot.commands.AutoShoot;
 // import frc.robot.commands.Autos;
 import frc.robot.drivebase.AbsoluteDrive;
 // import frc.robot.commands.NoteHandlerCommand;
 // import frc.robot.subsystems.Climber;
-import frc.robot.drivebase.TeleopDrive;
+// import frc.robot.drivebase.TeleopDrive;
 // import frc.robot.subsystems.Intake;
 // import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.SwerveBase;
@@ -37,7 +37,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+// import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 //import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
@@ -65,8 +65,7 @@ public class RobotContainer {
   private final CommandXboxController driveController = new CommandXboxController(OperatorConstants.driveControllerPort);
   // private final CommandJoystick driveController = new CommandJoystick(OperatorConstants.driveControllerPort);
   // private final CommandJoystick headingController = new CommandJoystick(OperatorConstants.headingControllerPort);
-  private final CommandXboxController operatorController = new CommandXboxController(
-      OperatorConstants.operatorControllerPort);
+  private final CommandXboxController operatorController = new CommandXboxController(OperatorConstants.operatorControllerPort);
   
   private Command autoCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();

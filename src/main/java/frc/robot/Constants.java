@@ -157,39 +157,44 @@ public final class Constants {
         public static final double METERS_PER_MOTOR_ROTATION = (Math.PI * Units.inchesToMeters(4)) / 6.12;
         // Calculation: 3in diameter wheels * pi [circumfrence] / gear ratio
         public static final double DEGREES_PER_STEERING_ROTATION = 360 / 16.8;
+        // same as angleConversionFactor from YAGSL thus, equal to 360 / (GEAR RATIO * ENCODER RESOLUTION)
         // degrees per rotation / gear ratio between module and motor
 
         // Module specific constants
         public static final class Mod0 {
             public static final int DRIVE_MOTOR_ID = 4;
             public static final int ANGLE_MOTOR_ID = 24;
+            public static final int CANCODER_ID = 34;
             public static final double ANGLE_OFFSET = 360 - 20.7;
             public static final SwerveModuleConstants CONSTANTS = new SwerveModuleConstants(0, DRIVE_MOTOR_ID,
-                    ANGLE_MOTOR_ID, ANGLE_OFFSET, FRONT_LEFT_X, FRONT_LEFT_Y);
+                    ANGLE_MOTOR_ID, CANCODER_ID, ANGLE_OFFSET, FRONT_LEFT_X, FRONT_LEFT_Y);
         }
 
         public static final class Mod1 {
             public static final int DRIVE_MOTOR_ID = 3;
             public static final int ANGLE_MOTOR_ID = 23;
+            public static final int CANCODER_ID = 33;
             public static final double ANGLE_OFFSET = 360 - 126.8;
             public static final SwerveModuleConstants CONSTANTS = new SwerveModuleConstants(1, DRIVE_MOTOR_ID,
-                    ANGLE_MOTOR_ID, ANGLE_OFFSET, FRONT_RIGHT_X, FRONT_RIGHT_Y);
+                    ANGLE_MOTOR_ID, CANCODER_ID, ANGLE_OFFSET, FRONT_RIGHT_X, FRONT_RIGHT_Y);
         }
 
         public static final class Mod2 {
             public static final int DRIVE_MOTOR_ID = 2;
             public static final int ANGLE_MOTOR_ID = 22;
+            public static final int CANCODER_ID = 32;
             public static final double ANGLE_OFFSET = 360 - 58.65;
             public static final SwerveModuleConstants CONSTANTS = new SwerveModuleConstants(2, DRIVE_MOTOR_ID,
-                    ANGLE_MOTOR_ID, ANGLE_OFFSET, BACK_LEFT_X, BACK_LEFT_Y);
+                    ANGLE_MOTOR_ID,CANCODER_ID, ANGLE_OFFSET, BACK_LEFT_X, BACK_LEFT_Y);
         }
 
         public static final class Mod3 {
             public static final int DRIVE_MOTOR_ID = 1;
             public static final int ANGLE_MOTOR_ID = 21;
+            public static final int CANCODER_ID = 31;
             public static final double ANGLE_OFFSET = 360 - 197.38;
             public static final SwerveModuleConstants CONSTANTS = new SwerveModuleConstants(3, DRIVE_MOTOR_ID,
-                    ANGLE_MOTOR_ID, ANGLE_OFFSET, BACK_RIGHT_X, BACK_RIGHT_Y);
+                    ANGLE_MOTOR_ID, CANCODER_ID, ANGLE_OFFSET, BACK_RIGHT_X, BACK_RIGHT_Y);
         }
 
         public static final int PIGEON = 0;
